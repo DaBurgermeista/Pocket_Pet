@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/x-icon" href="/assets/pet/chester.png">
+    <title>Pocket Pets</title>
+    <!-- Preconnects to help load fonts faster. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link rel="stylesheet" href="styles/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Silkscreen&family=VT323&family=Jersey+10&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <div id="game">
+        <h1>Pocket Pets</h1>
+        <div id="pet-info-container">
+            <img src="assets/pet/chester.png" alt="Happy Pet Image" id="pet-image" data-state="happy"/>
+            <h2 id="pet-name" class="pet-name">Chester</h2>
+        </div>
+
+        <div id="pet-stats-container">
+            <p id="pet-hunger" class="pet-hunger">Hunger: <span id="hunger-value">100</span></p>
+            <p id="pet-energy" class="pet-energy">Energy: <span id="energy-value">100</span></p>
+            <p id="pet-mood" class="pet-mood">Mood: <span id="mood-value">Happy</span></p>
+        </div>
+
+        <div id="interactions">
+            <button id="feed-btn">Feed</button>
+            <button id="sleep-btn">Sleep</button>
+            <button id="play-btn">Play</button>
+            <button id="clean-btn">Clean</button>
+        </div>
+    </div>
+    <script src="scripts/main.js"></script>
+</body>
+</html>
