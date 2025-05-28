@@ -31,13 +31,19 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function startGame(){
-    const info = document.getElementById('info');
+    sendInfo("Hello, friend!");
+}
 
-    info.textContent = "Hello, friend!";
+function sendInfo(message) {
+    const info = document.getElementById('info');
+    
+    info.textContent = message;
     info.style.opacity = 1;
+
+    // Message will fade after 5 seconds.
     setTimeout(() => {
         info.style.opacity = 0;
-    }, 3000)
+    }, 5000);
 }
 
 function statDecay(){
