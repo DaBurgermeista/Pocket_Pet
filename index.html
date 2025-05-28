@@ -27,12 +27,24 @@
         </div>
 
         <div id="interactions">
-            <button id="feed-btn">Feed</button>
-            <button id="sleep-btn">Sleep</button>
-            <button id="play-btn">Play</button>
-            <button id="clean-btn">Clean</button>
+            <div class="button-container">
+                <button id="feed-btn" data-info="+10 Hunger">
+                    Feed
+                </button>
+            </div>
+            <div class="button-container">
+                <button id="sleep-btn" data-info="+15 Energy | -5 Hunger">Sleep</button>
+            </div>
+            <div class="button-container">
+                <button id="play-btn" data-info="+10 Mood | -10 Energy">Play</button>
+            </div>
+            <div class="button-container">
+                <button id="clean-btn" data-info="+5 Mood">Clean</button>
+            </div>
+            <div id="info" class="info">info goes here</div>
         </div>
     </div>
+
     <script src="scripts/main.js"></script>
 </body>
 </html>

@@ -10,8 +10,35 @@ const pet = {
 document.addEventListener("DOMContentLoaded", () => {
     renderStats();
 
+    const info = document.getElementById('info');
+    const buttons = document.querySelectorAll('#interactions button');
+
+    buttons.forEach(button => {
+        button.addEventListener('mouseenter', () => {
+            info.textContent = button.dataset.info;
+            info.style.opacity = 1;
+        });
+
+        button.addEventListener('mouseleave', () => {
+            info.style.opacity = 0;
+        });
+    });
+
+    // Starts stat decay
     setInterval(statDecay, 1000);
+    // Welcome's the player
+    startGame();
 });
+
+function startGame(){
+    const info = document.getElementById('info');
+
+    info.textContent = "Hello, friend!";
+    info.style.opacity = 1;
+    setTimeout(() => {
+        info.style.opacity = 0;
+    }, 3000)
+}
 
 function statDecay(){
     pet.hunger -= 1;
