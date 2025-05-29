@@ -1,4 +1,3 @@
-
 // Create our pet object
 const pet = {
     hunger: 100,
@@ -73,61 +72,85 @@ function statDecay(){
 }
 
 function renderStats() {
-    // Assign HTML elements to variables
     const hungerStat = document.getElementById('hunger-value');
     const energyStat = document.getElementById('energy-value');
     const moodStat = document.getElementById('mood-value');
     const image = document.getElementById('pet-image');
 
-    //TODO: #1 Have values go red when they get low.
+    const hungerP = document.getElementById('pet-hunger');
+    const energyP = document.getElementById('pet-energy');
+    const moodP = document.getElementById('pet-mood');
+
+    // Update stat text
     hungerStat.textContent = pet.hunger;
     energyStat.textContent = pet.energy;
     moodStat.textContent = pet.mood;
 
-    if (pet.sleeping) {
-        return;
+    if (pet.sleeping) return;
+
+    // Decide pet state based on lowest stat under threshold
+    let lowestStat = 'happy';
+    let lowestValue = Math.min(pet.hunger, pet.energy, pet.mood);
+
+    if (lowestValue < 30) {
+        if (pet.hunger === lowestValue) {
+            lowestStat = 'hungry';
+        } else if (pet.mood === lowestValue) {
+            lowestStat = 'sad';
+        } else if (pet.energy === lowestValue) {
+            lowestStat = 'tired';
+        }
     }
 
-    // Set image state.
-    if (hungerStat.textContent < 30) {
-        if (hungerStat.textContent < energyStat.textContent && hungerStat.textContent < moodStat.textContent) {
-            image.dataset.state = 'hungry';
-        } 
-    } else if (moodStat.textContent < 30) {
-        if (moodStat.textContent < energyStat.textContent && moodStat.textContent < hungerStat.textContent) {
-            image.dataset.state = 'sad';
-        }
-    } else if (energyStat.textContent < 30){
-        if (energyStat.textContent < moodStat.textContent && energyStat.textContent < hungerStat.textContent) {
-            image.dataset.state = 'tired'; 
-        }
-    } else {
-        image.dataset.state = 'happy';
+    image.dataset.state = lowestStat;
+
+    // Update image and animation based on state
+    switch (lowestStat) {
+        case 'hungry':
+            image.src = 'assets/pet/chester-hungry.png';
+            sendInfo("=>.<= I'm sooo hungry!");
+            break;
+
+        case 'sad':
+            image.src = 'assets/pet/chester-sad.png';
+            sendInfo("I'm so bored... let's play!");
+            break;
+
+        case 'tired':
+            image.src = 'assets/pet/chester-tired.png';
+            sendInfo("...I'm so...sleepy...");
+            break;
+
+        default:
+            image.src = 'assets/pet/chester.png';
+            break;
     }
 
-    // Set image based on state
-    if (image.dataset.state === 'hungry') {
-        image.src = 'assets/pet/chester-hungry.png';
-        sendInfo("=>.<= I'm sooo hungry!");
-        
-        document.getElementById('pet-hunger').classList.add("jiggle");
-        document.getElementById('pet-hunger').offsetWidth;
-        document.getElementById('pet-hunger').classList.add("jiggle");
+    // Start animations for any stat below 30
+    if (pet.hunger < 30 && !hungerP.classList.contains("jiggle")) {
+        hungerP.classList.add("jiggle");
+        console.log('Starting Hunger Animation');
+    }
+    if (pet.mood < 30 && !moodP.classList.contains("jiggle")) {
+        moodP.classList.add("jiggle");
+        console.log('Starting Mood Animation');
+    }
+    if (pet.energy < 30 && !energyP.classList.contains("jiggle")) {
+        energyP.classList.add("jiggle");
+        console.log('Starting Energy Animation');
+    }
 
-        //setTimeout(() => {
-        //    document.getElementById('pet-hunger').classList.remove('jiggle');
-        //}, 1000);
-    } else if (image.dataset.state === 'sad') {
-        image.src = 'assets/pet/chester-sad.png';
-        sendInfo("I'm so bored... let's play!");
-    } else if (image.dataset.state === 'tired') {
-        image.src = 'assets/pet/chester-tired.png';
-        sendInfo("...I'm so...sleepy...");
-    } else {
-        image.src = 'assets/pet/chester.png';
+    // 🧹 Remove jiggle if hunger is now fine
+    if (pet.hunger >= 30) {
+        hungerP.classList.remove("jiggle");
+    }
+    if (pet.energy >= 30) {
+        energyP.classList.remove("jiggle");
+    }
+    if (pet.mood >= 30) {
+        moodP.classList.remove("jiggle");
     }
 }
-
 
 // Feed Button Listener
 document.getElementById('feed-btn').addEventListener('click', () => {
