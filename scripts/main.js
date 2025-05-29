@@ -4,6 +4,7 @@ const pet = {
     hunger: 100,
     energy: 100,
     mood: 100,
+    sleeping: false
 };
 
 // On document load...
@@ -76,11 +77,43 @@ function renderStats() {
     const hungerStat = document.getElementById('hunger-value');
     const energyStat = document.getElementById('energy-value');
     const moodStat = document.getElementById('mood-value');
+    const image = document.getElementById('pet-image');
 
     //TODO: #1 Have values go red when they get low.
     hungerStat.textContent = pet.hunger;
     energyStat.textContent = pet.energy;
     moodStat.textContent = pet.mood;
+
+    if (pet.sleeping) {
+        return;
+    }
+
+    // Set image state.
+    if (hungerStat.textContent < 30 && hungerStat.textContent < moodStat.textContent) {
+        image.dataset.state = 'hungry';
+    } else if (moodStat.textContent < 30 && moodStat.textContent < hungerStat.textContent) {
+        image.dataset.state = 'sad';
+    } else if (energyStat.textContent < moodStat.textContent && energyStat.textContent < hungerStat.textContent) {
+        if (energyStat.textContent < 30){
+            image.dataset.state = 'tired';
+        }
+    } else {
+        image.dataset.state = 'happy';
+    }
+
+    // Set image based on state
+    if (image.dataset.state === 'hungry') {
+        image.src = 'assets/pet/chester-hungry.png';
+        sendInfo("=>.<= I'm sooo hungry!");
+    } else if (image.dataset.state === 'sad') {
+        image.src = 'assets/pet/chester-sad.png';
+        sendInfo("I'm so bored... let's play!");
+    } else if (image.dataset.state === 'tired') {
+        image.src = 'assets/pet/chester-tired.png';
+        sendInfo("...I'm so...sleepy...");
+    } else {
+        image.src = 'assets/pet/chester.png';
+    }
 }
 
 // Feed Button Listener
