@@ -98,5 +98,14 @@ button:hover {
     transition: opacity 0.3s ease;
 }
 
-
+.jiggle {
+    animation: jiggle 0.2s infinite;
+  }
+  
+  @keyframes jiggle {
+    0%, 100% { transform: translate(0, 0); }
+    25% { transform: translate(-1px, 2px); }
+    50% { transform: translate(2px, -1px); }
+    75% { transform: translate(-2px, 1px); }
+  }
 

@@ -89,13 +89,17 @@ function renderStats() {
     }
 
     // Set image state.
-    if (hungerStat.textContent < 30 && hungerStat.textContent < moodStat.textContent) {
-        image.dataset.state = 'hungry';
-    } else if (moodStat.textContent < 30 && moodStat.textContent < hungerStat.textContent) {
-        image.dataset.state = 'sad';
-    } else if (energyStat.textContent < moodStat.textContent && energyStat.textContent < hungerStat.textContent) {
-        if (energyStat.textContent < 30){
-            image.dataset.state = 'tired';
+    if (hungerStat.textContent < 30) {
+        if (hungerStat.textContent < energyStat.textContent && hungerStat.textContent < moodStat.textContent) {
+            image.dataset.state = 'hungry';
+        } 
+    } else if (moodStat.textContent < 30) {
+        if (moodStat.textContent < energyStat.textContent && moodStat.textContent < hungerStat.textContent) {
+            image.dataset.state = 'sad';
+        }
+    } else if (energyStat.textContent < 30){
+        if (energyStat.textContent < moodStat.textContent && energyStat.textContent < hungerStat.textContent) {
+            image.dataset.state = 'tired'; 
         }
     } else {
         image.dataset.state = 'happy';
@@ -105,6 +109,14 @@ function renderStats() {
     if (image.dataset.state === 'hungry') {
         image.src = 'assets/pet/chester-hungry.png';
         sendInfo("=>.<= I'm sooo hungry!");
+        
+        document.getElementById('pet-hunger').classList.add("jiggle");
+        document.getElementById('pet-hunger').offsetWidth;
+        document.getElementById('pet-hunger').classList.add("jiggle");
+
+        //setTimeout(() => {
+        //    document.getElementById('pet-hunger').classList.remove('jiggle');
+        //}, 1000);
     } else if (image.dataset.state === 'sad') {
         image.src = 'assets/pet/chester-sad.png';
         sendInfo("I'm so bored... let's play!");
@@ -115,6 +127,7 @@ function renderStats() {
         image.src = 'assets/pet/chester.png';
     }
 }
+
 
 // Feed Button Listener
 document.getElementById('feed-btn').addEventListener('click', () => {
